@@ -1,0 +1,1 @@
+print(sum(any(n in(sorted(n),sorted(n,reverse=True))and all(1<=abs(n[i+1]-n[i])<=3for i in range(len(n)-1))for n in[f[:j]+f[j+1:]for j in range(len(f))])for f in[[*map(int,line.split())]for line in open(0)]))
