@@ -1,27 +1,24 @@
-from itertools import dropwhile
+from tqdm import tqdm
 
 
 def main():
     with open('input.txt') as file:
         disk_map = list(map(int, file.read().strip()))
 
-    # This is an oh so naive implementation and part 2 is definitely an optimisation problem
-    # I'm scared already
     disk = []
     for i, size in enumerate(disk_map):
         id_num = None if i % 2 else i // 2
         disk += [id_num] * size
 
-    while None in dropwhile(lambda block: block is None, reversed(disk)):
-        cursor = len(disk) - 1
-        while (value := disk[cursor]) is None:
-            cursor -= 1  # seek to last file block
-        disk[cursor] = None
+    for i in tqdm(range(len(disk) - 1, -1, -1)):
+        if disk[i] is None:
+            continue
 
-        cursor = 0
-        while disk[cursor] is not None:
-            cursor += 1  # seek to first empty space
-        disk[cursor] = value
+        first_empty_index = disk.index(None)
+        if first_empty_index > i:
+            break  # we can end early once the first empty space is to the right of the current block
+        disk[first_empty_index] = disk[i]
+        disk[i] = None
 
     print(sum(i * id_num for i, id_num in enumerate(disk) if id_num is not None))
 
