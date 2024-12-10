@@ -1,6 +1,7 @@
 # Don't commit puzzle inputs!
 # https://www.reddit.com/r/adventofcode/comments/e7khy8/comment/fa13hb9/
 */input.txt
+!templates/input.txt
 
 ### Python template
 # Byte-compiled / optimized / DLL files
